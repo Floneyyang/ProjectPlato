@@ -1,0 +1,5 @@
+1. Raymarch method based on: https://github.com/Jellevermandere/4D-Raymarching
+2. Raymarch algorithm: http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/#the-raymarching-algorithm
+3. Raymarching shader: https://www.youtube.com/watch?v=Ff0jJyyiVyw&t=1244s
+4. Distance functions: https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+5. Quad/Pixel 2D camera: https://github.com/Jellevermandere/4D-Raymarching

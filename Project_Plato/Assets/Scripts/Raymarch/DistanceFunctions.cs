@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Mathematics.math;
 
+//Distance functions based on: https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+//Credits to:https://github.com/Jellevermandere/4D-Raymarching/blob/master/Assets/Scripts/DistanceFunctions.cs
 namespace Unity.Mathematics
 {
     public class DistanceFunctions : MonoBehaviour
     {
-        // ****************** Distance Functions ****************** 
-
-        // Sphere
-        // s: radius
         public float sdSphere(float3 p, float s)
         {
             return length(p) - s;

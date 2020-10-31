@@ -4,6 +4,8 @@ using UnityEngine;
 using static Unity.Mathematics.math;
 using UnityEngine.SceneManagement;
 
+//Collision method based on:https://github.com/Jellevermandere/4D-Raymarching
+//added differentiation in collision detection for front/back of the raymarch objects
 namespace Unity.Mathematics
 {
     public class RaymarchCollider : MonoBehaviour

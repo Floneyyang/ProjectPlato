@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //************ Based on the Shape script from https://github.com/SebLague/Ray-Marching
-//************ Added rotation support and 4D PSR *************************************
+//************ Added rotation support and 4D PSR by https://github.com/Jellevermandere/4D-Raymarching
 
 public class Shape4D : MonoBehaviour
 {
