@@ -8,16 +8,19 @@ public class Collect : MonoBehaviour
     {
         leave,
         sun,
-        key
+        key,
+        moon
     };
 
     private HigerDimensionController leaveController;
     private SunController sunController;
+    private MoonController moonController;
 
     private void Start()
     {
         leaveController = GameObject.FindWithTag("Player").GetComponent<HigerDimensionController>();
         sunController = GameObject.FindWithTag("Player").GetComponent<SunController>();
+        moonController = GameObject.FindWithTag("Player").GetComponent<MoonController>();
     }
     public collectibleType type;
 
@@ -32,6 +35,10 @@ public class Collect : MonoBehaviour
             if (type == collectibleType.sun)
             {
                 sunController.enabled = true;
+            }
+            if (type == collectibleType.moon)
+            {
+                moonController.enabled = true;
             }
             if (type == collectibleType.key)
             {

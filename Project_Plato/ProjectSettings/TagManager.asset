@@ -14,6 +14,10 @@ TagManager:
   - Wall
   - Door
   - Key
+  - Left
+  - Right
+  - Down
+  - Front
   layers:
   - Default
   - TransparentFX

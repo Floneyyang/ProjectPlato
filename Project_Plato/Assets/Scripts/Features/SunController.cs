@@ -12,8 +12,8 @@ public class SunController : MonoBehaviour
     public Gradient gradient;
     public Gradient gradientPlant;
     public GameObject key;
-    float origin;
-    int c = 0;
+    public float wSpeed = 1.5f;
+    float wDirection;
 
     Color color;
 
@@ -27,39 +27,35 @@ public class SunController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Debug.Log("Keydown");
-            if (c == 0)
-            {
-                origin = transform.position.z;
-                c++;
-            }
+        if (Input.GetKey(KeyCode.Period)) wDirection = wSpeed;
+        else if (Input.GetKey(KeyCode.Comma)) wDirection = -wSpeed;
 
-            Debug.Log("origin" + origin);
+        if (Input.GetKey(KeyCode.Period) || Input.GetKey(KeyCode.Comma))
+        {
 
             //Spring
             for (int i = 0; i < shapesSpring.Length; i++)
             {
                 //Debug.Log("shapes before: " + shapesSpring[i].GetComponent<Shape4D>().rotationW.x);
-                shapesSpring[i].GetComponent<Shape4D>().positionW += (transform.position.z - origin) * Time.deltaTime;
+                shapesSpring[i].GetComponent<Shape4D>().positionW += wDirection * Time.deltaTime;
+                Debug.Log("shapesSpringW: " + shapesSpring[i].GetComponent<Shape4D>().positionW);
                 if (shapesSpring[i].GetComponent<Shape4D>().positionW > springMaxW) shapesSpring[i].GetComponent<Shape4D>().positionW = springMaxW;
                 else if (shapesSpring[i].GetComponent<Shape4D>().positionW < springMinW) shapesSpring[i].GetComponent<Shape4D>().positionW = springMinW;
                 //Debug.Log("shapes after: " + shapesSpring[i].GetComponent<Shape4D>().rotationW.x);
-
+                
                 //Winter
                 if (i == 0)
                 {
                     float colorW = Mathf.InverseLerp(0, springMaxW, Mathf.Abs(shapesSpring[i].GetComponent<Shape4D>().positionW));
                     color = gradient.Evaluate(colorW);
                     ground.GetComponent<Shape4D>().color = color;
-
+                    
                     Color color2 = gradientPlant.Evaluate(colorW);
                     for (int j = 0; j < plantWalls.Length; j++)
                     {
                         plantWalls[j].GetComponent<Shape4D>().color = color2;
                     }
-
+                    
                     if(Mathf.Abs(shapesSpring[i].GetComponent<Shape4D>().positionW) == springMaxW)
                     {
                         snowMaker.snowing = true;
@@ -68,15 +64,15 @@ public class SunController : MonoBehaviour
                     {
                         snowMaker.snowing = false;
                     }
-
+                    
                     float winterTerm = Mathf.InverseLerp(0, springMaxW, Mathf.Abs(shapesSpring[i].GetComponent<Shape4D>().positionW));
+                    
                     for (int w = 0; w < shapesWinter.Length; w++)
                     {
                         if (winterTerm == 0) winterTerm = 1;
-                        shapesWinter[w].GetComponent<Shape4D>().positionW += winterTerm*(transform.position.z - origin) * Time.deltaTime;
+                        shapesWinter[w].GetComponent<Shape4D>().positionW += winterTerm*wDirection * Time.deltaTime;
                         if (shapesWinter[w].GetComponent<Shape4D>().positionW > winterMaxW) shapesWinter[w].GetComponent<Shape4D>().positionW = winterMaxW;
                         else if (shapesWinter[w].GetComponent<Shape4D>().positionW < winterMinW) shapesWinter[w].GetComponent<Shape4D>().positionW = winterMinW;
-
                         if(shapesWinter[w].GetComponent<Shape4D>().positionW == winterMaxW)
                         {
                             GameObject.FindWithTag("Door").GetComponent<NextLevelTrigger>().open = true;
@@ -108,8 +104,5 @@ public class SunController : MonoBehaviour
                 else if (shapesW[i].GetComponent<Shape4D>().positionW < -0.03f) shapesW[i].GetComponent<Shape4D>().positionW = -0.03f;
             }*/
         }
-
-        if (Input.GetKeyUp(KeyCode.Space)) c = 0;
-
     }
 }

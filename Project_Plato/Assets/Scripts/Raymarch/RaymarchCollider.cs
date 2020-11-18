@@ -12,7 +12,8 @@ namespace Unity.Mathematics
     {
         [Tooltip("The transforms from which the raymarcher will test the distances and apply the collision")]
         public Transform[] rayMarchTransforms;
-        public float maxDownMovement = 1f;
+        public Transform gravity;
+        public float maxDownMovement = 0.5f;
 
         public CircleAnimation ani;
 
@@ -29,7 +30,9 @@ namespace Unity.Mathematics
 
         void Update()
         {
+            CheckGravity();
             RayMarch(rayMarchTransforms);
+            if (transform.position.y < -10f) fall = true;
             if (fall)
             {
                 ani.activate = false;
@@ -45,16 +48,6 @@ namespace Unity.Mathematics
             }
 
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if(other.gameObject.tag == "Wall")
-            {
-                fall = true;
-            }
-            //this.GetComponent<CapsuleCollider>().isTrigger = false;
-        }
-
 
         // the raymarcher checks the distance to all the given transforms, if one is less than zero, the player is moved in the opposite direction
         void RayMarch(Transform[] ro)
@@ -75,11 +68,19 @@ namespace Unity.Mathematics
                     //collision
                     if(ro[i].tag == "Back")
                     {
-                        transform.Translate(ro[i].forward * -d * 1.5f);
+                        transform.Translate(ro[i].forward * -d, Space.World);
+                    }
+                    else if (ro[i].tag == "Left")
+                    {
+                        transform.Translate(ro[i].right * -d, Space.World);
+                    }
+                    else if (ro[i].tag == "Right")
+                    {
+                        transform.Translate(ro[i].right * d, Space.World);
                     }
                     else
                     {
-                        transform.Translate(ro[i].forward * d * 1.5f, Space.World);
+                        transform.Translate(ro[i].forward * d, Space.World);
                     }
                 }
             }
@@ -98,9 +99,7 @@ namespace Unity.Mathematics
 
             }
 
-
             float globalDst = Camera.main.farClipPlane;
-
 
             for (int i = 0; i < cameraScript.orderedShapes.Count; i++)
             {
@@ -134,7 +133,6 @@ namespace Unity.Mathematics
         {
             p4D -= (float4)shape.Position();
             
-
             p4D.xz = mul(p4D.xz, float2x2(cos(shape.Rotation().y), sin(shape.Rotation().y), -sin(shape.Rotation().y), cos(shape.Rotation().y)));
             p4D.yz = mul(p4D.yz, float2x2(cos(shape.Rotation().x), -sin(shape.Rotation().x), sin(shape.Rotation().x), cos(shape.Rotation().x)));
             p4D.xy = mul(p4D.xy, float2x2(cos(shape.Rotation().z), -sin(shape.Rotation().z), sin(shape.Rotation().z), cos(shape.Rotation().z)));
@@ -174,6 +172,22 @@ namespace Unity.Mathematics
             yield return new WaitForSeconds(5f);
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name, LoadSceneMode.Single);
+
+        }
+
+        void CheckGravity()
+        {
+            Vector3 p = gravity.position;
+            float d = DistanceField(p);
+            if (d < 0)
+            {
+                //transform.Translate(Vector3.up * d, Space.World);
+            }
+            else
+            {
+                transform.Translate(Vector3.down * 0.5f, Space.World);
+            }
+
 
         }
     }

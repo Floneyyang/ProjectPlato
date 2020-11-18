@@ -17,7 +17,7 @@ public class PlayerControl : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetKey("w") || Input.GetKey("s") || Input.GetKey("a") || Input.GetKey("d"))
+		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
 		{
 			anim.SetInteger("AnimationPar", 1);
 		}
