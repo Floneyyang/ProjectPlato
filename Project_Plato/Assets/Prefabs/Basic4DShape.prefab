@@ -48,6 +48,8 @@ MonoBehaviour:
   positionW: 0
   rotationW: {x: 0, y: 0, z: 0}
   scaleW: 1
-  colour: {r: 1, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  transparency: 1
   smoothRadius: 0
+  collide: 1
   numChildren: 0

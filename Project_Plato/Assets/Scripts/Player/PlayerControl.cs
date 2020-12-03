@@ -8,6 +8,7 @@ public class PlayerControl : MonoBehaviour {
 
 	public float speed = 600.0f;
 	public float turnSpeed = .2f;
+	public bool swim = false;
 
 	void Start()
 	{
@@ -19,37 +20,42 @@ public class PlayerControl : MonoBehaviour {
 	{
 		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
 		{
-			anim.SetInteger("AnimationPar", 1);
+			if (!swim) anim.SetInteger("AnimationPar", 1);
+			else anim.SetInteger("AnimationPar", 2);
 		}
 		else
 		{
 			anim.SetInteger("AnimationPar", 0);
+
 		}
 
 		if (Input.GetAxis("Horizontal") > 0)
 		{
 			var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, 90f, transform.eulerAngles.z);
-			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed);
+			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed*20f);
 		}
+
 		else if (Input.GetAxis("Horizontal") < 0)
 		{
 			var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, -90f, transform.eulerAngles.z);
-			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed);
+			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed*20f);
 		}
-		else
-		{
-
+        else
+        {
 			if (Input.GetAxis("Vertical") > 0)
 			{
 				var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, 0f, transform.eulerAngles.z);
-				transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed*10f);
+				transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed * 20f);
 			}
-			else if (Input.GetAxis("Vertical") < 0)
+
+			if (Input.GetAxis("Vertical") < 0)
 			{
 				var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, 180f, transform.eulerAngles.z);
-				transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed*10f);
+				transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed * 20f);
 			}
 		}
+
+
 
 
 	}

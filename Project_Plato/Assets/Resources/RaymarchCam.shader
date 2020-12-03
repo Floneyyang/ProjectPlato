@@ -13,6 +13,7 @@ Shader "Raymarch/RaymarchCam"
 
         Pass
         {
+            Tags{"Queue" = "Transparent" "RenderType" = "Transparent"}
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -59,6 +60,13 @@ Shader "Raymarch/RaymarchCam"
                 int operation;
                 float blendStrength;
                 int numChildren;
+                float transparency;
+            };
+
+            struct ShapeData{
+                float dist;
+                float3 color;
+                float transparency;
             };
 
             StructuredBuffer<Shape> shapes;
@@ -131,12 +139,15 @@ Shader "Raymarch/RaymarchCam"
                 else if (shape.shapeType == 6) {
                     return sd16Cell(p4D, shape.scale);
                 }
+                else if (shape.shapeType == 7) {
+                    return sdTorus(p4D, shape.scale.xy);
+                }
 
                 return _maxDistance;
             }
             
 
-            float4 distanceField(float3 p)
+            ShapeData distanceField(float3 p)
             {
                 float4 p4D = float4 (p,w);
                 if(length(_wRotation) != 0){
@@ -148,6 +159,7 @@ Shader "Raymarch/RaymarchCam"
 
                 float globalDst = _maxDistance;
                 float3 globalColour = 1;
+                float globalTransparency = 1;
 
                 for (int i = 0; i < numShapes; i ++) {
                     Shape shape = shapes[i];
@@ -155,6 +167,7 @@ Shader "Raymarch/RaymarchCam"
 
                     float localDst = GetShapeDistance(shape,p4D);
                     float3 localColour = shape.colour;
+                    float localTransparency = shape.transparency;
 
 
                     for (int j = 0; j < numChildren; j ++) {
@@ -162,29 +175,38 @@ Shader "Raymarch/RaymarchCam"
                         float childDst = GetShapeDistance(childShape,p4D);
 
                         float4 combined = Combine(localDst, childDst, localColour, childShape.colour, childShape.operation, childShape.blendStrength);
+                        float2 combinedT = Combine(localDst, childDst, localTransparency, childShape.transparency, childShape.operation, childShape.blendStrength);
+                        localTransparency = combinedT.x;
                         localColour = combined.xyz;
                         localDst = combined.w;
                     }
                     i+=numChildren; // skip over children in outer loop
 
                     float4 globalCombined = Combine(globalDst, localDst, globalColour, localColour, shape.operation, shape.blendStrength);
+                    float2 globalCombinedT = Combine(globalDst, localDst, globalTransparency, localTransparency, shape.operation, shape.blendStrength);
+                    globalTransparency = globalCombinedT.x;
                     globalColour = globalCombined.xyz;
                     globalDst = globalCombined.w;
                 }
 
-                return float4(globalDst,globalColour);
+                ShapeData result;
+                result.dist = globalDst;
+                result.color = globalColour;
+                result.transparency = globalTransparency;
+
+
+                return result;
 
             }
-
 
             // returns the normal in a single point of the fractal
 
             float3 getNormal(float3 p)
             {
 
-              float d = distanceField(p).x;
+              float d = distanceField(p).dist;
                 const float2 e = float2(.01, 0);
-              float3 n = d - float3(distanceField(p - e.xyy).x,distanceField(p - e.yxy).x,distanceField(p - e.yyx).x);
+              float3 n = d - float3(distanceField(p - e.xyy).dist,distanceField(p - e.yxy).dist,distanceField(p - e.yyx).dist);
               return normalize(n);
 
             }
@@ -196,7 +218,7 @@ Shader "Raymarch/RaymarchCam"
                 float res = 1.0;
                 for( float t=mint; t<maxt; )
                 {
-                    float h = min(distanceField(ro + rd*t).x, sdVerticalCapsule(ro + rd*t - _player, 1, 0.5));
+                    float h = min(distanceField(ro + rd*t).dist, sdVerticalCapsule(ro + rd*t - _player, 1, 0.5));
                     if( h<0.001 )
                         return 0.0;
                     t += h;
@@ -212,7 +234,7 @@ Shader "Raymarch/RaymarchCam"
                 float ph = 1e20;
                 for( float t=mint; t<maxt; )
                 {
-                    float h = distanceField(ro + rd*t).x;
+                    float h = distanceField(ro + rd*t).dist;
                     if( h<0.001 )
                         return 0.0;
                     float y = h*h/(2.0*ph);
@@ -251,17 +273,17 @@ Shader "Raymarch/RaymarchCam"
                     }
 
                     //return distance to fractal
-                    float4 d = (distanceField(p));
+                    ShapeData d = (distanceField(p));
 
 
-                    if ((d.x) < _precision) //hit
+                    if ((d.dist) < _precision) //hit
                     {
                         float3 colorDepth;
                         float light;
                         float shadow;
                         //shading
 
-                        float3 color = d.yzw;
+                        float3 color = d.color;
 
                         if(_useNormal == 1){
                             float3 n = getNormal(p);
@@ -288,14 +310,14 @@ Shader "Raymarch/RaymarchCam"
                         float3 colorLight = float3 (color * light * shadow * ao); // multiplying all values between 0 and 1 to return final color
 
                         colorDepth = float3 (colorLight*(_maxDistance-t)/(_maxDistance) + _skyColor.rgb*(t)/(_maxDistance)); // multiplying with distance
-
-                        //colorDepth = pow( colorDepth, (1.0/2.2) );
-                        result = fixed4(colorDepth ,1);
+                        //result = fixed4(colorDepth ,d.transparency);
+                        result = fixed4(colorDepth,1);
+   
                         break;
 
                     }
 
-                    t += d.x;
+                    t += d.dist;
 
 
                 }
@@ -303,6 +325,7 @@ Shader "Raymarch/RaymarchCam"
                 return result;
             }
             // the fragment shader
+
             fixed4 frag (v2f i) : SV_Target
             {
                float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, i.uv).r);

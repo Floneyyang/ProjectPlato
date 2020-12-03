@@ -49,7 +49,9 @@ MonoBehaviour:
   rotationW: {x: 0, y: 0, z: 0}
   scaleW: 3.91
   color: {r: 0.36561054, g: 0.9811321, b: 0.4372753, a: 0}
+  transparency: 1
   smoothRadius: 0
+  collide: 1
   numChildren: 0
 --- !u!1001 &3096359827925392329
 PrefabInstance:
@@ -153,6 +155,11 @@ PrefabInstance:
       propertyPath: color.b
       value: 0.47843137
       objectReference: {fileID: 0}
+    - target: {fileID: 7220340402648136979, guid: 574545eca55884a07aeff49f3d3ef266,
+        type: 3}
+      propertyPath: transparency
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 574545eca55884a07aeff49f3d3ef266, type: 3}
 --- !u!1001 &3096359828307642672
@@ -235,7 +242,7 @@ PrefabInstance:
     - target: {fileID: 7220340402648136978, guid: 574545eca55884a07aeff49f3d3ef266,
         type: 3}
       propertyPath: m_Name
-      value: Trees
+      value: Trees Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7220340402648136979, guid: 574545eca55884a07aeff49f3d3ef266,
         type: 3}
@@ -266,6 +273,11 @@ PrefabInstance:
         type: 3}
       propertyPath: color.b
       value: 0.4372753
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220340402648136979, guid: 574545eca55884a07aeff49f3d3ef266,
+        type: 3}
+      propertyPath: transparency
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 574545eca55884a07aeff49f3d3ef266, type: 3}
@@ -376,6 +388,11 @@ PrefabInstance:
         type: 3}
       propertyPath: color.b
       value: 0.47843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220340402648136979, guid: 574545eca55884a07aeff49f3d3ef266,
+        type: 3}
+      propertyPath: transparency
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 574545eca55884a07aeff49f3d3ef266, type: 3}

@@ -38,4 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/4D.unity
     guid: 73330176fd33e4e9a89e779421f99e63
+  - enabled: 0
+    path: Assets/Scenes/MoonLevel.unity
+    guid: f49693cd036ef491fbfaf9a22e9eaa0f
   m_configObjects: {}

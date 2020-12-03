@@ -69,7 +69,6 @@ public class DeerAnimationController : MonoBehaviour
             {
                 PositionIter++;
                 _run = false;
-                StartCoroutine(DeerEatsKey());
                 if (PositionIter == targetPosition.Length)
                 {
                     _move = false;
@@ -79,6 +78,7 @@ public class DeerAnimationController : MonoBehaviour
                     if (deactivateAfterAni) this.gameObject.SetActive(false);
                     RandomizeTargetLocations();
                 }
+                StartCoroutine(DeerEatsKey());
             }
         }
     }

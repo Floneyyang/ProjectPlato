@@ -38,7 +38,7 @@ public class SunController : MonoBehaviour
             {
                 //Debug.Log("shapes before: " + shapesSpring[i].GetComponent<Shape4D>().rotationW.x);
                 shapesSpring[i].GetComponent<Shape4D>().positionW += wDirection * Time.deltaTime;
-                Debug.Log("shapesSpringW: " + shapesSpring[i].GetComponent<Shape4D>().positionW);
+                //Debug.Log("shapesSpringW: " + shapesSpring[i].GetComponent<Shape4D>().positionW);
                 if (shapesSpring[i].GetComponent<Shape4D>().positionW > springMaxW) shapesSpring[i].GetComponent<Shape4D>().positionW = springMaxW;
                 else if (shapesSpring[i].GetComponent<Shape4D>().positionW < springMinW) shapesSpring[i].GetComponent<Shape4D>().positionW = springMinW;
                 //Debug.Log("shapes after: " + shapesSpring[i].GetComponent<Shape4D>().rotationW.x);
@@ -66,10 +66,10 @@ public class SunController : MonoBehaviour
                     }
                     
                     float winterTerm = Mathf.InverseLerp(0, springMaxW, Mathf.Abs(shapesSpring[i].GetComponent<Shape4D>().positionW));
-                    
+                    if (winterTerm == 0) winterTerm = 1;
                     for (int w = 0; w < shapesWinter.Length; w++)
                     {
-                        if (winterTerm == 0) winterTerm = 1;
+
                         shapesWinter[w].GetComponent<Shape4D>().positionW += winterTerm*wDirection * Time.deltaTime;
                         if (shapesWinter[w].GetComponent<Shape4D>().positionW > winterMaxW) shapesWinter[w].GetComponent<Shape4D>().positionW = winterMaxW;
                         else if (shapesWinter[w].GetComponent<Shape4D>().positionW < winterMinW) shapesWinter[w].GetComponent<Shape4D>().positionW = winterMinW;
