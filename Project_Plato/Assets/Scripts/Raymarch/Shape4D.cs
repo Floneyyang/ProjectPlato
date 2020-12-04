@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class Shape4D : MonoBehaviour
 {
-    public enum ShapeType { HyperSphere, HyperCube, DuoCylinder, plane, Cone, FiveCell, SixteenCell };
-    public enum Operation { Union, Blend, Substract, Intersect };
+    public enum ShapeType { HyperSphere, HyperCube, DuoCylinder, plane, Cone, FiveCell, SixteenCell, Torus, Tetrahedron };
+    public enum Operation { Union, Blend, Substract, Intersect};
     
     [Header("Shape Settings")]
     public ShapeType shapeType;
@@ -22,8 +22,26 @@ public class Shape4D : MonoBehaviour
 
     [Header("Render Settings")]
     public Color color;
+    [Range(0, 1)]
+    public float transparency = 1f;
     [Range (0,1)]
     public float smoothRadius;
+
+    [Header("Collision Settings")]
+    public bool collide = true;
+
+    [Header("4D Controller Settings")]
+    public bool changePosW;
+    public float MaxPosW;
+    public float MinPosW;
+    public bool changeRotW;
+    public Vector3 MaxRotW;
+    public Vector3 MinRotW;
+
+    [HideInInspector]
+    public float PosWChangeAmount = 1.5f;
+    [HideInInspector]
+    public Vector3 RotWChangeAmount;
 
     [HideInInspector]
     public int numChildren;
