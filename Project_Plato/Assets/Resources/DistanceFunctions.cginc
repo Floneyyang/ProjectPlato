@@ -58,15 +58,20 @@ float sdPlane(float4 p, float4 s)
 
 }
 
-
+float sdTorus(float4 p, float2 t)
+{
+    float2 q = float2(length(p.xzw) - t.x, p.y);
+    return length(q) - t.y;
+}
 
 
 // Tetrahedron
+
 float sdTetrahedron(float3 p, float a, float4x4 rotate45)
 {
     
   //p = mul(rotate45, float4(p,1)).xyz;
-  return (max( abs(p.x+p.y)-p.z,abs(p.x-p.y)+p.z)-a)/sqrt(3.);
+  return (max( abs(p.x+p.y)-p.z,abs(p.x-p.y)+p.z)-a)/sqrt(3);
   
     
 }

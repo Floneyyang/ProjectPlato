@@ -16,6 +16,7 @@ namespace Unity.Mathematics
         public float maxDownMovement = 0.5f;
 
         public CircleAnimation ani;
+        public bool useGravity = true;
 
         private DistanceFunctions Df;
         private RaymarchCamera cameraScript;
@@ -30,7 +31,7 @@ namespace Unity.Mathematics
 
         void Update()
         {
-            CheckGravity();
+            if(useGravity) CheckGravity();
             RayMarch(rayMarchTransforms);
             if (transform.position.y < -10f) fall = true;
             if (fall)
@@ -68,18 +69,22 @@ namespace Unity.Mathematics
                     //collision
                     if(ro[i].tag == "Back")
                     {
+                        Debug.Log("back");
                         transform.Translate(ro[i].forward * -d, Space.World);
                     }
                     else if (ro[i].tag == "Left")
                     {
+                        Debug.Log("left");
                         transform.Translate(ro[i].right * -d, Space.World);
                     }
                     else if (ro[i].tag == "Right")
                     {
+                        Debug.Log("right");
                         transform.Translate(ro[i].right * d, Space.World);
                     }
                     else
                     {
+                        Debug.Log("front");
                         transform.Translate(ro[i].forward * d, Space.World);
                     }
                 }
@@ -105,23 +110,27 @@ namespace Unity.Mathematics
             {
                 //Debug.Log(cameraScript.orderedShapes.Count);
                 Shape4D shape = cameraScript.orderedShapes[i];
-                int numChildren = shape.numChildren;
-
-                ///Debug.Log("p4D: " + p4D);
-                float localDst = GetShapeDistance(shape, p4D);
-
-                
-                for (int j = 0; j < numChildren; j++)
+                if (cameraScript.orderedShapes[i].collide)
                 {
-                    Shape4D childShape = cameraScript.orderedShapes[i + j + 1];
-                    float childDst = GetShapeDistance(childShape, p4D);
+                    int numChildren = shape.numChildren;
 
-                    localDst = Df.Combine(localDst, childDst, childShape.operation, childShape.smoothRadius);
+                    ///Debug.Log("p4D: " + p4D);
+                    float localDst = GetShapeDistance(shape, p4D);
 
-                }
-                i += numChildren; // skip over children in outer loop
 
-                globalDst = Df.Combine(globalDst, localDst, shape.operation, shape.smoothRadius);
+                    for (int j = 0; j < numChildren; j++)
+                    {
+                        Shape4D childShape = cameraScript.orderedShapes[i + j + 1];
+                        float childDst = GetShapeDistance(childShape, p4D);
+
+                        localDst = Df.Combine(localDst, childDst, childShape.operation, childShape.smoothRadius);
+
+                    }
+                    i += numChildren; // skip over children in outer loop
+
+                    globalDst = Df.Combine(globalDst, localDst, shape.operation, shape.smoothRadius);
+                } 
+
             }
 
             return globalDst;
@@ -161,6 +170,8 @@ namespace Unity.Mathematics
                     return Df.sd5Cell(p4D, shape.Scale());
                 case Shape4D.ShapeType.SixteenCell:
                     return Df.sd16Cell(p4D, shape.Scale().x);
+                case Shape4D.ShapeType.Torus:
+                    return Df.sdTorus(p4D, ((float4)shape.Scale()).xy);
 
             }
 
@@ -179,16 +190,7 @@ namespace Unity.Mathematics
         {
             Vector3 p = gravity.position;
             float d = DistanceField(p);
-            if (d < 0)
-            {
-                //transform.Translate(Vector3.up * d, Space.World);
-            }
-            else
-            {
-                transform.Translate(Vector3.down * 0.5f, Space.World);
-            }
-
-
+            if (d >= 0) transform.Translate(Vector3.down * 0.5f, Space.World);
         }
     }
 }

@@ -86,8 +86,10 @@ public class RaymarchCamera : SceneViewFilter
 
         public static int GetSize()
         {
-            return 84;
+            return 88;
         }
+
+        public float transparency;
     }
 
     // the main function that sends the data to the shader
@@ -185,8 +187,10 @@ public class RaymarchCamera : SceneViewFilter
                 shapeType = (int)s.shapeType,
                 operation = (int)s.operation,
                 blendStrength = s.smoothRadius * 3,
-                numChildren = s.numChildren
+                numChildren = s.numChildren,
+                transparency = s.transparency
             };
+            //if (orderedShapes[i].collide) collideShapes.Add(orderedShapes[i]);
         }
 
         ComputeBuffer shapeBuffer = new ComputeBuffer(shapeData.Length, ShapeData.GetSize());
@@ -195,6 +199,8 @@ public class RaymarchCamera : SceneViewFilter
         _raymarchMaterial.SetInt("numShapes", shapeData.Length);
 
         buffersToDispose.Add(shapeBuffer);
+
+       
 
     }
 

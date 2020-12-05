@@ -65,6 +65,12 @@ namespace Unity.Mathematics
 
         }
 
+        public float sdTorus(float4 p, float2 t)
+        {
+            float2 q = float2(length(p.xzw) - t.x, p.y);
+            return length(q) - t.y;
+        }
+
         public float Blend(float a, float b, float k)
         {
             float h = clamp(0.5f + 0.5f * (b - a) / k, 0.0f, 1.0f);

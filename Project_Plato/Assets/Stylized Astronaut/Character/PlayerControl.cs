@@ -29,12 +29,12 @@ public class PlayerControl : MonoBehaviour {
 		if (Input.GetAxis("Horizontal") > 0)
 		{
 			var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, 90f, transform.eulerAngles.z);
-			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed);
+			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed * 10f);
 		}
 		else if (Input.GetAxis("Horizontal") < 0)
 		{
 			var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, -90f, transform.eulerAngles.z);
-			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed);
+			transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * turnSpeed * 10f);
 		}
 		else
 		{
