@@ -4,7 +4,9 @@ using UnityEngine;
 using static Unity.Mathematics.math;
 
 //Distance functions based on: https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
-//Credits to:https://github.com/Jellevermandere/4D-Raymarching/blob/master/Assets/Scripts/DistanceFunctions.cs
+//Reference: https://github.com/Jellevermandere/4D-Raymarching/blob/master/Assets/Scripts/DistanceFunctions.cs
+//Implemented more 4d shapes based on raymarch method
+
 namespace Unity.Mathematics
 {
     public class DistanceFunctions : MonoBehaviour

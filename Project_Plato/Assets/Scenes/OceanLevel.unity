@@ -1537,7 +1537,7 @@ MonoBehaviour:
   _shader: {fileID: 4800000, guid: 8f4de6e9330b641579626ad7feb3b23e, type: 3}
   camera: {fileID: 573958039}
   _directionalLight: {fileID: 295907439}
-  player: {fileID: 0}
+  player: {fileID: 2081474581}
   _precision: 0.001
   _max_iteration: 200
   _wRotation: {x: 0, y: 0, z: 0}
@@ -2953,7 +2953,7 @@ PrefabInstance:
     - target: {fileID: 7220340402648136978, guid: 574545eca55884a07aeff49f3d3ef266,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7220340402648136979, guid: 574545eca55884a07aeff49f3d3ef266,
         type: 3}
@@ -4764,6 +4764,12 @@ MonoBehaviour:
   - {fileID: 615616999}
   - {fileID: 1997884879}
   - {fileID: 284470413}
+--- !u!4 &2081474581 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3717108373213077264, guid: 75e8c88a198814d6b90327715a1d4018,
+    type: 3}
+  m_PrefabInstance: {fileID: 1923255117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2107248081 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2819102189067171469, guid: bf3fbe398960842fb92b8b1ed352f8e5,
