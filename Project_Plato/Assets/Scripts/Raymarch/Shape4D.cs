@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//************ Based on the Shape script from https://github.com/SebLague/Ray-Marching
-//************ Added rotation support and 4D PSR by https://github.com/Jellevermandere/4D-Raymarching
+//Based on the Shape script from https://github.com/SebLague/Ray-Marching
+//Added rotation support and 4D PSR from https://github.com/Jellevermandere/4D-Raymarching
+//Added 4D Controller variables based on min/max w, transparency settings, and more 4D Shapes
 
 public class Shape4D : MonoBehaviour
 {

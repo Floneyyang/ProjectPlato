@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 //Collision method based on:https://github.com/Jellevermandere/4D-Raymarching
 //added differentiation in collision detection for front/back of the raymarch objects
+//simulated gravity detection based on collision from bottom of the raymarch objects
+
 namespace Unity.Mathematics
 {
     public class RaymarchCollider : MonoBehaviour

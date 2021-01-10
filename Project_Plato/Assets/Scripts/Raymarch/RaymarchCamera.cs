@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Raymarch method based on:https://github.com/Jellevermandere/4D-Raymarching
+//added transparency settings and seperated collidable and non collidable 4d objects
+//current issue: OnRenderImage() does not work for webGL build
+
 public class RaymarchCamera : SceneViewFilter
 {
     

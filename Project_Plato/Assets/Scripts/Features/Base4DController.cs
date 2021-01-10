@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// a base 4D shape controller that controls 4D shapes based on two group timestamps
+// script can find objects in the scene under specific name, no need for declaring public variables
+
 public class Base4DController : MonoBehaviour
 {
     [Header("Scene Time A Settings")]

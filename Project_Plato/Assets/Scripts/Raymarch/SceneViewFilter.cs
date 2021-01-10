@@ -3,8 +3,8 @@
 using UnityEditor;
 #endif
 
-// ****************** Shows the Raymarched objects in the sceneview ****************** 
-//Credits to:https://github.com/Jellevermandere/4D-Raymarching
+//Shows the Raymarched objects in the sceneview
+//Reference:https://github.com/Jellevermandere/4D-Raymarching
 
 public class SceneViewFilter : MonoBehaviour
 {

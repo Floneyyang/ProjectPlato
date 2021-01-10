@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//a custom particle system
+
 public class Snow : MonoBehaviour
 {
     public GameObject snow;

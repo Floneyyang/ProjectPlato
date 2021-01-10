@@ -1,4 +1,7 @@
-﻿//
+﻿//Reference:https://github.com/Jellevermandere/4D-Raymarching
+// created a shapedata class that store float 5 data type
+// added transparency calculation for raymarch objects
+// implemented more 4D shape types
 
 Shader "Raymarch/RaymarchCam"
 {

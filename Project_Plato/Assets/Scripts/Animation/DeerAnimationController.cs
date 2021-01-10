@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// NPC animation randomization
+
 public class DeerAnimationController : MonoBehaviour
 {
     public float speed = 0.3f;
