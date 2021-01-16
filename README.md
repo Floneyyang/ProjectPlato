@@ -17,5 +17,6 @@ Project Plato is my research project on the topic of Visualization and Gamificat
 ![](ProjectPlato.gif)
 
 
-### [Playable Build](https://floney.itch.io/project-plato)
-### [Project DevBlog](https://www.floneyyang.com/blog) 
+### Links
+- [Playable Build](https://floney.itch.io/project-plato)
+- [Project DevBlog](https://www.floneyyang.com/blog) 
