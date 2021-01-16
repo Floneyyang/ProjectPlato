@@ -14,14 +14,14 @@ Project Plato is my research project on the topic of Visualization and Gamificat
 - Randomization of NPC allocations and movements
 
 
-![](ProjectPlato.gif)
+![](/Project_Plato/Images/ProjectPlato.gif)
 
 ### Links
 - [Playable Build](https://floney.itch.io/project-plato)
 - [Project DevBlog](https://www.floneyyang.com/blog) 
 
-![](Shape.gif)
-![](CollisionAfter.gif)
+![](/Project_Plato/Images/Shape.gif)
+![](/Project_Plato/Images/CollisionAfter.gif)
 
 
 
