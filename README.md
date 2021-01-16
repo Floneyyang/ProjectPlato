@@ -15,6 +15,8 @@ Project Plato is my research project on the topic of Visualization and Gamificat
 
 
 ![](ProjectPlato.gif)
+![](Shape.gif)
+![](CollisionAfter.gif)
 
 
 ### Links
