@@ -1,6 +1,4 @@
 # ProjectPlato
-[![Build Actions Status](https://github.com/Floenyyang/ProjectPlato/workflows/Build/badge.svg)](https://github.com/Floenyyang/ProjectPlato/actions)
-
 ## Overview
 Project Plato is my research project on the topic of Visualization and Gamification of 4D Spaces. 
 
