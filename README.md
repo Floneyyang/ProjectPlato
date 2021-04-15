@@ -1,5 +1,6 @@
 # ProjectPlato
 ![GitHub](https://img.shields.io/github/license/Floneyyang/ProjectPlato) 
+![Website](https://img.shields.io/website?up_message=active&url=https%3A%2F%2Ffloney.itch.io%2Fproject-plato)
 ![YouTube Video Views](https://img.shields.io/youtube/views/KTlJC1Ch5_8?style=social)
 
 ## Overview
