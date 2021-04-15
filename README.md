@@ -4,7 +4,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Floneyyang/ProjectPlato)
 ![YouTube Video Views](https://img.shields.io/youtube/views/KTlJC1Ch5_8?style=social)
 
-## Overview
+### Overview
 Project Plato is my research project on the topic of Visualization and Gamification of 4D Spaces. 
 
 ### Design:
