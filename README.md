@@ -22,7 +22,7 @@ Project Plato is my research project on the topic of Visualization and Gamificat
 ![](/Project_Plato/Images/ProjectPlato.gif)
 
 ### Links
-- [Playable Build](https://floney.itch.io/project-plato)
+- <img alt="Itch.io" src="https://img.shields.io/badge/Itch%20-%23FF0B34.svg?&style=for-the-badge&logo=Itch.io&logoColor=white"/>  [Playable Build](https://floney.itch.io/project-plato)
 - [Project DevBlog](https://www.floneyyang.com/blog) 
 
 ![](/Project_Plato/Images/Shape.gif)
